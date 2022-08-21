@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'app_colors.dart';
 
 class TextStyles {
@@ -11,18 +10,18 @@ class TextStyles {
     letterSpacing: -0.05,
   );
 
-  static const TextStyle roxo24w400Roboto = TextStyle(
+  static const TextStyle purple24w400Roboto = TextStyle(
     fontFamily: "Roboto",
     fontWeight: FontWeight.w400,
     fontSize: 24.0,
-    color: AppColors.roxo,
+    color: AppColors.purple,
   );
 
-  static const TextStyle ciano16w400Roboto = TextStyle(
+  static const TextStyle cyan16w400Roboto = TextStyle(
     fontFamily: "Roboto",
     fontWeight: FontWeight.w400,
     fontSize: 16.0,
-    color: AppColors.ciano,
+    color: AppColors.cyan,
   );
 
   static const TextStyle white72w700Montserrat = TextStyle(

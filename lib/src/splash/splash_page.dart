@@ -23,7 +23,7 @@ class _SplashPageState extends State<SplashPage> {
       body: Container(
         height: double.infinity,
         width: double.infinity,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: AppColors.blueGradient,
         ),
         child: Stack(
@@ -50,7 +50,7 @@ class _SplashPageState extends State<SplashPage> {
                       children: const [
                         Hero(
                           tag: "journal",
-                          child: const Material(
+                          child: Material(
                             color: Colors.transparent,
                             child: Text(
                               "journal",
