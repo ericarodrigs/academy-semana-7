@@ -57,7 +57,7 @@ class NewNote extends StatelessWidget {
                       shadowColor: Colors.transparent,
                     ),
                     onPressed: (){
-                      Modular.to.pushNamed('/details/');
+                      Modular.to.pushNamed('/details');
                     },
                       child:Text("SALVAR"),
                 )

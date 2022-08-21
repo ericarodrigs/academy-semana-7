@@ -1,14 +1,12 @@
+import 'package:algernon/src/model/note_model.dart';
 import 'package:algernon/src/shared/constants/app_colors.dart';
-import 'package:algernon/src/shared/constants/text_styles.dart';
 import 'package:flutter/material.dart';
 
 class NoteWidget extends StatelessWidget {
-
   //! Mover para local apropriado
-  const NoteWidget({Key? key, required this.note}) : super(key: key);
+  NoteWidget({Key? key, required this.note}) : super(key: key);
 
-  //! Usar modelo apropriado
-  final note;
+  final NoteModel note;
 
   @override
   Widget build(BuildContext context) {
@@ -24,37 +22,41 @@ class NoteWidget extends StatelessWidget {
           children: [
             Card(
               margin: EdgeInsets.zero,
-              child: Flexible(
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: note.noteColor,
-                    borderRadius: BorderRadius.circular(4.0),
-                  ),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          note.title,
-                          style: TextStyles.white24w700Roboto,
+              child: Flex(
+                direction: Axis.horizontal,
+                children: [Flexible(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: note.noteColor,
+                      borderRadius: BorderRadius.circular(4.0),
+                    ),
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            note.title,
+                            style: const TextStyle(color: Colors.white,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 16,
+                              fontFamily: "Roboto",),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
+
                   ),
-                  
                 ),
-              ),
+              ]),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Flexible(
-                child: Text(
-                  note.description,
-                  style: Theme.of(context).textTheme.headline6,
-                  softWrap: true,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 6,
-                ),
+              child: Text(
+                note.description,
+                style: Theme.of(context).textTheme.headline6,
+                softWrap: true,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 6,
               ),
             )
           ],

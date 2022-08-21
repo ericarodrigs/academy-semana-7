@@ -64,7 +64,7 @@ class _NoteDetailsState extends State<NoteDetails> {
                     shadowColor: Colors.transparent,
                   ),
                   onPressed: () {
-                    Modular.to.pushNamed('/details');
+                    Modular.to.pushNamed('/new/details');
                   },
                   child: Text("SALVAR"),
                 ))

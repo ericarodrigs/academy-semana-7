@@ -2,6 +2,7 @@ import 'package:algernon/src/shared/constants/text_styles.dart';
 import 'package:algernon/src/splash/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
