@@ -10,6 +10,5 @@ class FilledHomePageModule extends Module {
   List<ModularRoute> get routes => [
     ChildRoute(Modular.initialRoute,
         child: (context, args) => FilledHomePage()),
-    ModuleRoute('/details', module: NoteDetailsModule()),
   ];
 }

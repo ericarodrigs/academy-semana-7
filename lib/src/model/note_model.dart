@@ -1,10 +1,26 @@
-import 'package:algernon/src/shared/constants/app_colors.dart';
-import 'package:flutter/material.dart';
+class NoteModel {
+  String? noteColor;
+  String? title;
+  String? description;
 
-class NoteModel{
-  final Color noteColor;
-  final String title;
-  final String description;
+  NoteModel(this.noteColor,
+      this.title,
+      this.description,);
 
-  NoteModel(this.noteColor, this.title, this.description,);
+  Map<String, dynamic>  toJson() => {
+    'noteColor': noteColor,
+    'title': title,
+    'description': description,
+  };
+
+  NoteModel.fromJson(Map<String, dynamic> json)
+      :
+        noteColor = json['noteColor'],
+        title = json['title'],
+        description = json['description'];
+
+  @override
+  String toString() {
+    return '{ $noteColor, $title, $description }';
+  }
 }

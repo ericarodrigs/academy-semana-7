@@ -10,6 +10,6 @@ class EmptyHomePageModule extends Module {
   List<ModularRoute> get routes => [
     ChildRoute(Modular.initialRoute,
         child: (context, args) => const EmptyHomePage()),
-    ModuleRoute('/new/', module: NewNoteModule())
+    ModuleRoute('/new', module: NewNoteModule())
   ];
 }

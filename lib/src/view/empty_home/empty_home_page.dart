@@ -65,7 +65,7 @@ class EmptyHomePage extends StatelessWidget {
             ),
           ),
           onPressed: () {
-            Modular.to.pushNamed('/new/');
+            Modular.to.pushNamed('/empty/new/');
           },
         )
     );

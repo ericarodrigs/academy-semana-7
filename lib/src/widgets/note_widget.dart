@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class NoteWidget extends StatelessWidget {
   //! Mover para local apropriado
-  NoteWidget({Key? key, required this.note}) : super(key: key);
+  const NoteWidget({Key? key, required this.note}) : super(key: key);
 
   final NoteModel note;
 
@@ -27,7 +27,7 @@ class NoteWidget extends StatelessWidget {
                 children: [Flexible(
                   child: Container(
                     decoration: BoxDecoration(
-                      color: note.noteColor,
+                      color: Colors.red,
                       borderRadius: BorderRadius.circular(4.0),
                     ),
                     child: Row(
@@ -35,7 +35,7 @@ class NoteWidget extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            note.title,
+                            note.title!,
                             style: const TextStyle(color: Colors.white,
                               fontWeight: FontWeight.w700,
                               fontSize: 16,
@@ -52,7 +52,7 @@ class NoteWidget extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                note.description,
+                note.description!,
                 style: Theme.of(context).textTheme.headline6,
                 softWrap: true,
                 overflow: TextOverflow.ellipsis,

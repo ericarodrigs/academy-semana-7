@@ -1,24 +1,36 @@
+import 'package:algernon/src/controller/note_controller.dart';
 import 'package:algernon/src/model/note_model.dart';
+import 'package:algernon/src/services/shared_preferences_service.dart';
 import 'package:algernon/src/shared/constants/app_colors.dart';
 import 'package:algernon/src/widgets/note_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class FilledHomePage extends StatelessWidget {
-  FilledHomePage({Key? key}) : super(key: key);
+class FilledHomePage extends StatefulWidget {
+  const FilledHomePage({Key? key}) : super(key: key);
 
-  List<NoteModel> listNotes = [
-    NoteModel(AppColors.green, 'Nao esquecer', 'Primeiro card pra testar'),
-    NoteModel(AppColors.yellow, 'Nao esquecer', 'Primeiro card pra testar'),
-    NoteModel(AppColors.cyan, 'Nao esquecer', 'Primeiro card pra testar'),
-    NoteModel(AppColors.purple, 'Nao esquecer', 'Primeiro card pra testar'),
-    NoteModel(AppColors.pink, 'Nao esquecer', 'Primeiro card pra testar'),
-    NoteModel(AppColors.green, 'Nao esquecer', 'Primeiro card pra testar'),
-    NoteModel(AppColors.yellow, 'Nao esquecer', 'Primeiro card pra testar'),
-    NoteModel(AppColors.cyan, 'Nao esquecer', 'Primeiro card pra testar'),
-    NoteModel(AppColors.purple, 'Nao esquecer', 'Primeiro card pra testar'),
-    NoteModel(AppColors.pink, 'Nao esquecer', 'Primeiro card pra testar'),
-  ];
+  @override
+  State<FilledHomePage> createState() => _FilledHomePageState();
+}
+
+class _FilledHomePageState extends State<FilledHomePage> {
+
+  SharedPreferencesService service = SharedPreferencesService();
+  late NoteController controller;
+  List<NoteModel> listNotes = [];
+
+  @override
+  void initState() {
+    controller = NoteController(service);
+    super.initState();
+    controller.getNote().then((notesShared) async => {
+      if (notesShared != null) {
+        listNotes = notesShared,
+        setState(() {
+        }),
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +65,7 @@ class FilledHomePage extends StatelessWidget {
             ),
           ),
           onPressed: () {
-            Modular.to.pushNamed('/details');
+            Modular.to.pushNamed('/empty/new/');
           },
         ));
   }

@@ -1,20 +1,39 @@
+import 'dart:async';
+
+import 'package:algernon/src/controller/note_controller.dart';
+import 'package:algernon/src/services/shared_preferences_service.dart';
 import 'package:algernon/src/shared/constants/app_colors.dart';
 import 'package:algernon/src/shared/constants/text_styles.dart';
 import 'package:animated_card/animated_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
 
   @override
-  _SplashPageState createState() => _SplashPageState();
+  State<SplashPage> createState() => _SplashPageState();
 }
 
 class _SplashPageState extends State<SplashPage> {
+  SharedPreferencesService service = SharedPreferencesService();
+
+  late NoteController controller;
+
   @override
   void initState() {
-    //! Esperar por alguma coisa?
+    controller = NoteController(service);
     super.initState();
+    Timer(const Duration(seconds: 3), () =>
+        controller.getNote().then((notesShared) async => {
+          if (notesShared == null) {
+            Modular.to.navigate('/empty/')
+          } else {
+            print('aqui primeiro' + notesShared.length.toString()),
+            Modular.to.navigate('/filled/')
+          }
+        })
+    );
   }
 
   @override
