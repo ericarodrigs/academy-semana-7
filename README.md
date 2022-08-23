@@ -30,5 +30,5 @@ de tempo e a segurança para utilizar essa ferramenta foram os motivos que me fi
 
 ### **Observação** <h3>
 
-O método de "deletar" notas cadastradas no armazenamento local foi implementado através de um "alert dialog" que questiona se o usuário
-tem certeza que quer apagar tal informação. Após o clique em ok, é realizada a deleção, a lista de objetos é atualizada e a tela é renderizada.
+O método de "deletar" notas cadastradas no armazenamento local foi implementado através de "onLongPress" que exibe um "alert dialog" que questiona se o usuário
+tem certeza que quer apagar tal informação. Após a confirmação, é realizada a deleção, a lista de objetos é atualizada e a tela é renderizada.
