@@ -4,29 +4,12 @@ import 'package:algernon/src/shared/constants/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import '../controller/note_controller.dart';
-import '../services/shared_preferences_service.dart';
-
-class NoteWidget extends StatefulWidget {
+class NoteWidget extends StatelessWidget {
   const NoteWidget({Key? key, required this.note, required this.action})
       : super(key: key);
   final Function() action;
 
   final NoteModel note;
-
-  @override
-  State<NoteWidget> createState() => _NoteWidgetState();
-}
-
-class _NoteWidgetState extends State<NoteWidget> {
-  SharedPreferencesService service = SharedPreferencesService();
-  late NoteController controller;
-
-  @override
-  void initState() {
-    controller = NoteController(service);
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +22,7 @@ class _NoteWidgetState extends State<NoteWidget> {
         color: AppColors.grey,
         child: InkWell(
           onTap: () => Modular.to
-            .pushNamed('/empty/new/details/', arguments: widget.note),
+            .pushNamed('/empty/new/details/', arguments: note),
           onLongPress: () => showDialog<String>(
             context: context,
             builder: (BuildContext context) => AlertDialog(
@@ -51,7 +34,7 @@ class _NoteWidgetState extends State<NoteWidget> {
                   child: const Text('Cancel'),
                 ),
                 TextButton(
-                  onPressed: () => widget.action(),
+                  onPressed: () => action(),
                   child: const Text('Ok'),
                 ),
               ],
@@ -70,14 +53,14 @@ class _NoteWidgetState extends State<NoteWidget> {
                         child: Container(
                           decoration: BoxDecoration(
                             color: AppColors.listColor()[
-                                int.parse(widget.note.indexColor)],
+                                int.parse(note.indexColor)],
                             borderRadius: BorderRadius.circular(4.0),
                           ),
                           child: SizedBox(
                             width: double.infinity,
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Text(widget.note.title!,
+                              child: Text(note.title!,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyles.white16w700Roboto),
                             ),
@@ -91,7 +74,7 @@ class _NoteWidgetState extends State<NoteWidget> {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        widget.note.description!,
+                        note.description!,
                         style: Theme.of(context).textTheme.headline6,
                         softWrap: true,
                         overflow: TextOverflow.ellipsis,
@@ -106,7 +89,7 @@ class _NoteWidgetState extends State<NoteWidget> {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    'Criação: ${widget.note.date}',
+                    'Criação: ${note.date}',
                     style: TextStyles.black10w300Roboto,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
