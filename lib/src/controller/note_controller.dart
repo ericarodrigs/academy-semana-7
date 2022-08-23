@@ -33,6 +33,21 @@ class NoteController {
     });
   }
 
+  Future<void> deleteNote(NoteModel note) async {
+    List<NoteModel> notes = [];
+    getNote().then((notesShared) async => {
+      if (notesShared != null)
+        {
+          notes = notesShared,
+        },
+      notes.removeWhere((element) =>
+      element.description == note.description &&
+          element.title == note.title &&
+          element.indexColor == note.indexColor),
+      await service.writeString('notes', jsonEncode(notes))
+    });
+  }
+
   void setColor(String noteColor) {
     noteModel.indexColor = noteColor;
   }
@@ -48,5 +63,4 @@ class NoteController {
   void setDate(String date) {
     noteModel.date = date;
   }
-
 }

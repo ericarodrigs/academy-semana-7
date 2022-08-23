@@ -14,7 +14,6 @@ class FilledHomePage extends StatefulWidget {
 }
 
 class _FilledHomePageState extends State<FilledHomePage> {
-
   SharedPreferencesService service = SharedPreferencesService();
   late NoteController controller;
   List<NoteModel> listNotes = [];
@@ -22,14 +21,30 @@ class _FilledHomePageState extends State<FilledHomePage> {
   @override
   void initState() {
     controller = NoteController(service);
-    super.initState();
     controller.getNote().then((notesShared) async => {
-      if (notesShared != null) {
+      if (notesShared != null){
         listNotes = notesShared,
-        setState(() {
-        }),
+        setState(() {}),
       }
     });
+    super.initState();
+  }
+
+  action(NoteModel note) {
+    controller.deleteNote(note);
+    removeFromListNotes(note);
+    removeFromSharedPreferences(note);
+    Modular.to.pop();
+  }
+
+  void removeFromListNotes(NoteModel note) {
+    listNotes.removeWhere((element) =>
+    element.description == note.description &&
+        element.title == note.title &&
+        element.indexColor == note.indexColor);
+  }
+  void removeFromSharedPreferences(NoteModel note) {
+    controller.deleteNote(note);
   }
 
   @override
@@ -44,7 +59,14 @@ class _FilledHomePageState extends State<FilledHomePage> {
         body: GridView.builder(
           itemCount: listNotes.length,
           itemBuilder: (context, index) {
-            return NoteWidget(note: listNotes[index]);
+            return NoteWidget(
+              note: listNotes[index],
+              action: () {
+                setState(() {
+                  action(listNotes[index]);
+                });
+              },
+            );
           },
           primary: false,
           padding: const EdgeInsets.all(20),
