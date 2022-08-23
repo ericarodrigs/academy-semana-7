@@ -94,7 +94,6 @@ class _NewNoteState extends State<NewNote> {
             Center(
                 child: ElevatedButton(
               onPressed: () {
-                print('note' + note.toString());
                 String convertedDate = dateFormat();
                 note.date = convertedDate;
                 controller.setDate(convertedDate);

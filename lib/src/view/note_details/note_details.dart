@@ -1,4 +1,5 @@
 import 'package:algernon/src/core/shared/constants/app_colors.dart';
+import 'package:algernon/src/core/shared/constants/text_styles.dart';
 import 'package:algernon/src/model/note_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -62,16 +63,11 @@ class _NoteDetailsState extends State<NoteDetails> {
           const Divider(color: Colors.grey, thickness: 1, height: 45,),
           Expanded(
               child: Container(
+                width: double.infinity,
                 margin: const EdgeInsets.only(top: 8),
                 child: Text(note.description!,
                 textAlign: TextAlign.justify,
-                style: const TextStyle(
-                      color: Color.fromRGBO(0, 0, 0, 0.54),
-                      fontWeight: FontWeight.w400,
-                      fontSize: 14.0,
-                      fontFamily: "Roboto",
-                      fontStyle: FontStyle.normal,
-                    ),),
+                style: TextStyles.white14w400Roboto),
               )),
           Center(
               child: ElevatedButton(

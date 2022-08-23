@@ -5,7 +5,8 @@ import 'package:algernon/src/model/note_model.dart';
 class NoteController {
   final LocalStorageInterface sharedPreferences;
 
-  NoteModel noteModel = NoteModel(indexColor: '0', description: '', title: '', date: '01/10/10');
+  NoteModel noteModel = NoteModel(
+      indexColor: '0', description: '', title: '', date: '');
 
   NoteController(this.sharedPreferences);
 
@@ -35,7 +36,8 @@ class NoteController {
 
   Future<void> deleteNote(NoteModel note) async {
     List<NoteModel> notes = [];
-    getNote().then((notesShared) async => {
+    getNote().then((notesShared) async =>
+    {
       if (notesShared != null)
         {
           notes = notesShared,
