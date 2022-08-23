@@ -1,5 +1,6 @@
 import 'package:algernon/src/model/note_model.dart';
 import 'package:algernon/src/shared/constants/app_colors.dart';
+import 'package:algernon/src/shared/constants/text_styles.dart';
 import 'package:flutter/material.dart';
 
 class NoteWidget extends StatelessWidget {
@@ -18,47 +19,61 @@ class NoteWidget extends StatelessWidget {
         ),
         color: AppColors.grey,
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Card(
-              margin: EdgeInsets.zero,
-              child: Flex(
-                direction: Axis.horizontal,
-                children: [Flexible(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: AppColors.listColor()[int.parse(note.noteColor!)],
-                      borderRadius: BorderRadius.circular(4.0),
-                    ),
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            note.title!,
-                            style: const TextStyle(color: Colors.white,
-                              fontWeight: FontWeight.w700,
-                              fontSize: 16,
-                              fontFamily: "Roboto",),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Card(
+                  margin: EdgeInsets.zero,
+                  child: Flex(direction: Axis.horizontal, children: [
+                    Flexible(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color:
+                          AppColors.listColor()[int.parse(note.indexColor)],
+                          borderRadius: BorderRadius.circular(4.0),
+                        ),
+                        child: SizedBox(
+                          width: double.infinity,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(note.title!,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyles.white16w700Roboto),
                           ),
                         ),
-                      ],
+                      ),
                     ),
-
+                  ]),
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      note.description!,
+                      style: Theme.of(context).textTheme.headline6,
+                      softWrap: true,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 4,
+                    ),
                   ),
                 ),
-              ]),
+              ],
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                note.description!,
-                style: Theme.of(context).textTheme.headline6,
-                softWrap: true,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 6,
+            SizedBox(
+              width: double.infinity,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Criação: ${note.date}',
+                  style: TextStyles.black10w300Roboto,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
               ),
-            )
+            ),
           ],
         ),
       ),

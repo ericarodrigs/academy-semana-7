@@ -1,28 +1,26 @@
 class NoteModel {
-  String? noteColor;
+  String indexColor;
   String? title;
   String? description;
+  String? date;
 
-  NoteModel({
-    this.noteColor,
-    this.title,
-    this.description,
-  });
+  NoteModel({this.indexColor = '0', this.title, this.description, this.date});
 
-  Map<String, dynamic>  toJson() => {
-    'noteColor': noteColor,
+  Map<String, dynamic> toJson() => {
+    'indexColor': indexColor,
     'title': title,
     'description': description,
+    'date': date,
   };
 
   NoteModel.fromJson(Map<String, dynamic> json)
-      :
-        noteColor = json['noteColor'],
+      : indexColor = json['indexColor'],
         title = json['title'],
-        description = json['description'];
+        description = json['description'],
+        date = json['date'];
 
   @override
   String toString() {
-    return '{ $noteColor, $title, $description }';
+    return '{ $indexColor, $title, $description, $date }';
   }
 }

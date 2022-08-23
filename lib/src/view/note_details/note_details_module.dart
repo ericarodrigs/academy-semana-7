@@ -8,8 +8,8 @@ class NoteDetailsModule extends Module {
 
   @override
   List<ModularRoute> get routes => [
-    ChildRoute(Modular.initialRoute,
-        child: (context, args) => const NoteDetails()),
-    ModuleRoute('/filled', module: FilledHomePageModule())
-  ];
+        ChildRoute(Modular.initialRoute,
+            child: (context, args) => NoteDetails(note: args.data)),
+        ModuleRoute('/filled', module: FilledHomePageModule())
+      ];
 }

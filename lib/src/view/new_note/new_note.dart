@@ -1,4 +1,5 @@
 import 'package:algernon/src/controller/note_controller.dart';
+import 'package:algernon/src/model/note_model.dart';
 import 'package:algernon/src/services/shared_preferences_service.dart';
 import 'package:algernon/src/shared/constants/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,8 @@ class NewNote extends StatefulWidget {
 class _NewNoteState extends State<NewNote> {
   SharedPreferencesService service = SharedPreferencesService();
   late NoteController controller;
-  String dropdownValue = '0';
+  String dropdownValueInitial = '0';
+  NoteModel note = NoteModel();
 
   @override
   void initState() {
@@ -24,6 +26,11 @@ class _NewNoteState extends State<NewNote> {
 
   @override
   Widget build(BuildContext context) {
+    String dateFormat() {
+      DateTime now = DateTime.now();
+      return '${now.day}/${now.month}/${now.year}';
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Image.asset('assets/images/app_bar_logo.png'),
@@ -40,18 +47,22 @@ class _NewNoteState extends State<NewNote> {
               children: [
                 Expanded(
                     child: TextFormField(
-                      onChanged: controller.setTitle,
-                      decoration: const InputDecoration(
-                        labelText: 'Título',
-                        border: InputBorder.none,
-                      ),
-                    )),
+                  onChanged: (String? title) {
+                    controller.setTitle(title!);
+                    note.title = title;
+                  },
+                  decoration: const InputDecoration(
+                    labelText: 'Título',
+                    border: InputBorder.none,
+                  ),
+                )),
                 DropdownButton<String>(
-                  value: dropdownValue,
-                  onChanged: (String? newValue) {
+                  value: dropdownValueInitial,
+                  onChanged: (String? newIndex) {
+                    dropdownValueInitial = newIndex!;
+                    controller.setColor(dropdownValueInitial);
                     setState(() {
-                      dropdownValue = newValue!;
-                      controller.setColor(dropdownValue);
+                      note.indexColor = dropdownValueInitial;
                     });
                   },
                   items: <String>[
@@ -60,12 +71,12 @@ class _NewNoteState extends State<NewNote> {
                     '2',
                     '3',
                     '4',
-                  ].map<DropdownMenuItem<String>>((String value) {
+                  ].map<DropdownMenuItem<String>>((String index) {
                     return DropdownMenuItem<String>(
-                      value: value,
+                      value: index,
                       child: Icon(
                         Icons.circle,
-                        color: AppColors.listColor()[int.parse(value)],
+                        color: AppColors.listColor()[int.parse(index)],
                       ),
                     );
                   }).toList(),
@@ -74,34 +85,40 @@ class _NewNoteState extends State<NewNote> {
             ),
             Expanded(
                 child: TextFormField(
-                  onChanged: controller.setDescription,
-                  decoration: const InputDecoration(
-                    labelText: 'Digite aqui...',
-                    border: InputBorder.none,
-                  ),
-                )),
+              onChanged: (String? description) {
+                controller.setDescription(description!);
+                note.description = description;
+              },
+              decoration: const InputDecoration(
+                labelText: 'Digite aqui...',
+                border: InputBorder.none,
+              ),
+            )),
             Center(
                 child: ElevatedButton(
-                  onPressed: () {
-                    controller.writeNote();
-                    Modular.to.pushNamed('/empty/new/details/');
-                  },
-                  style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.zero,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(4))),
-                  child: Ink(
-                    decoration: const BoxDecoration(
-                      gradient: AppColors.blueGradient,
-                    ),
-                    child: Container(
-                      width: 73,
-                      height: 32,
-                      alignment: Alignment.center,
-                      child: const Text('SALVAR'),
-                    ),
-                  ),
-                )),
+              onPressed: () {
+                String convertedDate = dateFormat();
+                note.date = convertedDate;
+                controller.setDate(convertedDate);
+                controller.writeNote();
+                Modular.to.navigate('/empty/new/details/', arguments: note);
+              },
+              style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.zero,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4))),
+              child: Ink(
+                decoration: const BoxDecoration(
+                  gradient: AppColors.blueGradient,
+                ),
+                child: Container(
+                  width: 73,
+                  height: 32,
+                  alignment: Alignment.center,
+                  child: const Text('SALVAR'),
+                ),
+              ),
+            )),
           ]),
         ),
       ),
