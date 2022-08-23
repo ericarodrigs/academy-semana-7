@@ -1,7 +1,6 @@
 import 'package:algernon/src/controller/note_controller.dart';
+import 'package:algernon/src/core/shared/constants/app_colors.dart';
 import 'package:algernon/src/model/note_model.dart';
-import 'package:algernon/src/services/shared_preferences_service.dart';
-import 'package:algernon/src/shared/constants/app_colors.dart';
 import 'package:algernon/src/widgets/note_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -14,13 +13,11 @@ class FilledHomePage extends StatefulWidget {
 }
 
 class _FilledHomePageState extends State<FilledHomePage> {
-  SharedPreferencesService service = SharedPreferencesService();
-  late NoteController controller;
+  late NoteController controller = Modular.get();
   List<NoteModel> listNotes = [];
 
   @override
   void initState() {
-    controller = NoteController(service);
     controller.getNote().then((notesShared) async => {
       if (notesShared != null){
         listNotes = notesShared,
@@ -51,8 +48,12 @@ class _FilledHomePageState extends State<FilledHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Image.asset('assets/images/app_bar_logo.png'),
-          backgroundColor: Colors.transparent,
+          title: Image.asset('assets/images/app_bar_logo.png', color: Colors.white,),
+          flexibleSpace: Container(
+            decoration: const BoxDecoration(
+              gradient: AppColors.blueGradient,
+            ),
+          ),
           centerTitle: true,
           elevation: 0,
         ),

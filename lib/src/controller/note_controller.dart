@@ -1,16 +1,16 @@
 import 'dart:convert';
-
+import 'package:algernon/src/core/services/local_storage_interface.dart';
 import 'package:algernon/src/model/note_model.dart';
-import 'package:algernon/src/services/shared_preferences_service.dart';
 
 class NoteController {
-  final SharedPreferencesService service;
-  NoteModel noteModel = NoteModel();
+  final LocalStorageInterface sharedPreferences;
 
-  NoteController(this.service);
+  NoteModel noteModel = NoteModel(indexColor: '0', description: '', title: '', date: '01/10/10');
+
+  NoteController(this.sharedPreferences);
 
   Future<List<NoteModel>?> getNote() async {
-    var notesJson = await service.read('notes');
+    var notesJson = await sharedPreferences.read('notes');
     if (notesJson != null) {
       var decodeNotes = jsonDecode(notesJson) as List;
       List<NoteModel> notes =
@@ -29,7 +29,7 @@ class NoteController {
           notes = notesShared,
         },
       notes.add(noteModel),
-      await service.writeString('notes', jsonEncode(notes))
+      await sharedPreferences.writeString('notes', jsonEncode(notes))
     });
   }
 
@@ -44,7 +44,7 @@ class NoteController {
       element.description == note.description &&
           element.title == note.title &&
           element.indexColor == note.indexColor),
-      await service.writeString('notes', jsonEncode(notes))
+      await sharedPreferences.writeString('notes', jsonEncode(notes))
     });
   }
 

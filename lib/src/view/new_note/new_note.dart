@@ -1,7 +1,6 @@
 import 'package:algernon/src/controller/note_controller.dart';
+import 'package:algernon/src/core/shared/constants/app_colors.dart';
 import 'package:algernon/src/model/note_model.dart';
-import 'package:algernon/src/services/shared_preferences_service.dart';
-import 'package:algernon/src/shared/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -13,14 +12,12 @@ class NewNote extends StatefulWidget {
 }
 
 class _NewNoteState extends State<NewNote> {
-  SharedPreferencesService service = SharedPreferencesService();
-  late NoteController controller;
+  late NoteController controller = Modular.get();
   String dropdownValueInitial = '0';
-  NoteModel note = NoteModel();
+  NoteModel note = NoteModel(indexColor: '0',title: '', description: '', date: '' );
 
   @override
   void initState() {
-    controller = NoteController(service);
     super.initState();
   }
 
@@ -97,6 +94,7 @@ class _NewNoteState extends State<NewNote> {
             Center(
                 child: ElevatedButton(
               onPressed: () {
+                print('note' + note.toString());
                 String convertedDate = dateFormat();
                 note.date = convertedDate;
                 controller.setDate(convertedDate);

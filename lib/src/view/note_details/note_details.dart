@@ -1,6 +1,5 @@
+import 'package:algernon/src/core/shared/constants/app_colors.dart';
 import 'package:algernon/src/model/note_model.dart';
-import 'package:algernon/src/shared/constants/app_colors.dart';
-import 'package:algernon/src/shared/constants/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -30,29 +29,50 @@ class _NoteDetailsState extends State<NoteDetails> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Expanded(child: Text(note.title!)),
+              Expanded(child: Text(note.title!,
+                style: const TextStyle(
+                    color: Color.fromRGBO(0, 0, 0, 0.54),
+                    fontWeight: FontWeight.w700,
+                    fontSize: 16.0,
+                    fontFamily: "Roboto",
+                    fontStyle: FontStyle.normal,
+                  ),)),
               Icon(
                 Icons.circle,
                 color: AppColors.listColor()[int.parse(note.indexColor)],
               ),
             ],
           ),
+          const Divider(color: Colors.grey, thickness: 1, height: 45,),
           Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text( note.date!,
+                Text( "Data: ${note.date!}",
                   textAlign: TextAlign.start,
                   style: const TextStyle(
                     color: Color.fromRGBO(0, 0, 0, 0.54),
-                    fontWeight: FontWeight.w400,
+                    fontWeight: FontWeight.w700,
                     fontSize: 16.0,
                     fontFamily: "Roboto",
+                    fontStyle: FontStyle.normal,
                   ),
                 ),
               ]),
+          const Divider(color: Colors.grey, thickness: 1, height: 45,),
           Expanded(
-              child: Text(note.description!)),
+              child: Container(
+                margin: const EdgeInsets.only(top: 8),
+                child: Text(note.description!,
+                textAlign: TextAlign.justify,
+                style: const TextStyle(
+                      color: Color.fromRGBO(0, 0, 0, 0.54),
+                      fontWeight: FontWeight.w400,
+                      fontSize: 14.0,
+                      fontFamily: "Roboto",
+                      fontStyle: FontStyle.normal,
+                    ),),
+              )),
           Center(
               child: ElevatedButton(
                 onPressed: () {
