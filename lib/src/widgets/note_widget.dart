@@ -27,7 +27,7 @@ class NoteWidget extends StatelessWidget {
                 children: [Flexible(
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.red,
+                      color: AppColors.listColor()[int.parse(note.noteColor!)],
                       borderRadius: BorderRadius.circular(4.0),
                     ),
                     child: Row(

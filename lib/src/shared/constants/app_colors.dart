@@ -23,4 +23,6 @@ class AppColors {
     ],
     transform: GradientRotation((-34 * pi) / 180),
   );
+
+  static List<Color> listColor() => [pink, green, purple, cyan, yellow];
 }

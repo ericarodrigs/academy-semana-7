@@ -5,7 +5,7 @@ import 'package:algernon/src/services/shared_preferences_service.dart';
 
 class NoteController {
   final SharedPreferencesService service;
-  NoteModel noteModel = NoteModel('Colors.white', '', '');
+  NoteModel noteModel = NoteModel(noteColor: '0', title: '', description: '');
 
   NoteController(this.service);
 

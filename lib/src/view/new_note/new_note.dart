@@ -12,10 +12,9 @@ class NewNote extends StatefulWidget {
 }
 
 class _NewNoteState extends State<NewNote> {
-
   SharedPreferencesService service = SharedPreferencesService();
-
   late NoteController controller;
+  String dropdownValue = '0';
 
   @override
   void initState() {
@@ -42,40 +41,67 @@ class _NewNoteState extends State<NewNote> {
                 Expanded(
                     child: TextFormField(
                       onChanged: controller.setTitle,
-                  decoration: const InputDecoration(
-                    labelText: 'Título',
-                    border: InputBorder.none,
-                  ),
-                )),
-                const Text('cores')
+                      decoration: const InputDecoration(
+                        labelText: 'Título',
+                        border: InputBorder.none,
+                      ),
+                    )),
+                DropdownButton<String>(
+                  value: dropdownValue,
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      dropdownValue = newValue!;
+                      controller.setColor(dropdownValue);
+                    });
+                  },
+                  items: <String>[
+                    '0',
+                    '1',
+                    '2',
+                    '3',
+                    '4',
+                  ].map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Icon(
+                        Icons.circle,
+                        color: AppColors.listColor()[int.parse(value)],
+                      ),
+                    );
+                  }).toList(),
+                )
               ],
             ),
             Expanded(
                 child: TextFormField(
                   onChanged: controller.setDescription,
-              decoration: const InputDecoration(
-                labelText: 'Digite aqui...',
-                border: InputBorder.none,
-              ),
-            )),
-            DecoratedBox(
-                decoration: BoxDecoration(
-                    gradient: AppColors.blueGradient,
-                    borderRadius: BorderRadius.circular(4),
-                ),
-                child:ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.transparent,
-                      onSurface: Colors.transparent,
-                      shadowColor: Colors.transparent,
+                  decoration: const InputDecoration(
+                    labelText: 'Digite aqui...',
+                    border: InputBorder.none,
+                  ),
+                )),
+            Center(
+                child: ElevatedButton(
+                  onPressed: () {
+                    controller.writeNote();
+                    Modular.to.pushNamed('/empty/new/details/');
+                  },
+                  style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.zero,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(4))),
+                  child: Ink(
+                    decoration: const BoxDecoration(
+                      gradient: AppColors.blueGradient,
                     ),
-                    onPressed: () {
-                      controller.writeNote();
-                      Modular.to.pushNamed('/empty/new/details/');
-                    },
-                      child:Text("SALVAR"),
-                )
-            ),
+                    child: Container(
+                      width: 73,
+                      height: 32,
+                      alignment: Alignment.center,
+                      child: const Text('SALVAR'),
+                    ),
+                  ),
+                )),
           ]),
         ),
       ),

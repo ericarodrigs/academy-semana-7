@@ -3,9 +3,11 @@ class NoteModel {
   String? title;
   String? description;
 
-  NoteModel(this.noteColor,
-      this.title,
-      this.description,);
+  NoteModel({
+    this.noteColor,
+    this.title,
+    this.description,
+  });
 
   Map<String, dynamic>  toJson() => {
     'noteColor': noteColor,

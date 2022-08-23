@@ -1,5 +1,4 @@
 import 'package:algernon/src/shared/constants/app_colors.dart';
-import 'package:algernon/src/shared/constants/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -28,10 +27,9 @@ class _NoteDetailsState extends State<NoteDetails> {
           child: Column(children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                    child: Text('Nao esquecer')),
-                const Text('cores')
+              children: const [
+                Expanded(child: Text('Nao esquecer')),
+                Text('cores')
               ],
             ),
             Column(
@@ -52,22 +50,29 @@ class _NoteDetailsState extends State<NoteDetails> {
             const Expanded(
                 child: Text(
                     'Lorem ipsum dolor sit amet, consecter adipiscing elit, sed  incididunt ut labore et dolore aliqua.')),
-            DecoratedBox(
-                decoration: BoxDecoration(
-                  gradient: AppColors.blueGradient,
-                  borderRadius: BorderRadius.circular(4),
-                ),
+            Center(
                 child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.transparent,
-                    onSurface: Colors.transparent,
-                    shadowColor: Colors.transparent,
-                  ),
                   onPressed: () {
-                    Modular.to.pushNamed('/empty/new/details/filled/');
+                    Modular.to.navigate('/empty/new/details/filled/');
                   },
-                  child: Text("OK"),
-                ))
+                  style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.zero,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(4))),
+                  child: Ink(
+                    decoration: const BoxDecoration(
+                      gradient: AppColors.blueGradient,
+                    ),
+                    child: Container(
+                      width: 73,
+                      height: 32,
+                      alignment: Alignment.center,
+                      child: const Text(
+                        'OK',
+                      ),
+                    ),
+                  ),
+                )),
           ]),
         ),
       ),
